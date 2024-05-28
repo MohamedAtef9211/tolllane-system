@@ -2,6 +2,7 @@ package com.egabi.tls.controller;
 
 import com.egabi.tls.TollaneJavaFxApplication;
 import com.egabi.tls.controller.model.ViewLoader;
+import com.egabi.tls.service.LoginService;
 import com.egabi.tls.utils.ClassUtils;
 import com.egabi.tls.utils.JavaFxUtils;
 import com.egabi.tls.utils.ScreenUtils;
@@ -69,7 +70,7 @@ public abstract class BaseFxController implements Initializable {
 
 
     public String stageTitle() {
-        return "الوطنية للطرق";
+        return JAVA_FX_UTILS.getValueFromBundle("stage.app.title");
     }
 
     public void updateStageData() {
@@ -94,6 +95,8 @@ public abstract class BaseFxController implements Initializable {
         alert.setTitle("logout");
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ok) {
+            LoginService loginService = applicationContext().getBean(LoginService.class);
+            loginService.logout();
             stage.close();
         }
     }

@@ -35,12 +35,12 @@ public class LoginController extends BaseFxController{
     private Text message;
     @Override
     public String getFxmlViewPath() {
-        return "/ui/views/login-view.fxml";
+        return "/ui/views/login.fxml";
     }
 
     @Override
     public String stageTitle() {
-        return "تسجيل الدخول";
+        return JAVA_FX_UTILS.getValueFromBundle("stage.login.title");
     }
 
     @Override

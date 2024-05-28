@@ -1,6 +1,7 @@
 package com.egabi.tls;
 
 import com.egabi.tls.controller.BaseFxController;
+import com.egabi.tls.controller.CashCollectionController;
 import com.egabi.tls.controller.LoginController;
 import com.egabi.tls.controller.model.ViewLoader;
 import com.egabi.tls.service.FetchData;
@@ -26,7 +27,8 @@ public class TollaneJavaFxApplication extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        ViewLoader loader = loadHomePage().loadView();
+        BaseFxController homePage = loadHomePage();
+        ViewLoader loader = homePage.loadView();
         stage = loader.getStage();
         stage.setHeight(ScreenUtils.SCREEN_HEIGHT);
         stage.setWidth(ScreenUtils.SCREEN_WIDTH);
@@ -36,7 +38,7 @@ public class TollaneJavaFxApplication extends Application {
         Stage finalStage = stage;
         stage.setOnCloseRequest(event -> {
             event.consume();
-            loadHomePage().closureAction(finalStage);
+            homePage.closureAction(finalStage);
         });
 //        BaseFxController controller = loader.getLoader().getController();
 //        Map<String,Object> values = new HashMap<>();
@@ -55,6 +57,6 @@ public class TollaneJavaFxApplication extends Application {
     }
 
     private BaseFxController loadHomePage(){
-        return new LoginController();
+        return new CashCollectionController();
     }
 }

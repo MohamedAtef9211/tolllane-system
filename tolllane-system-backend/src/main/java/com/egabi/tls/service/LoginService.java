@@ -18,7 +18,7 @@ public class LoginService {
                 && userObj.getPassword().toLowerCase().equalsIgnoreCase(user.getPassword()));
     }
 
-    public boolean logout(User user){
+    public boolean logout(){
         System.err.println("inside logout");
         return true;
     }
