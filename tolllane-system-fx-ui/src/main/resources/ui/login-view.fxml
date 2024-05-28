@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="%app.size.height" prefWidth="%app.size.width" styleClass="login-panel"
+            stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.egabi.tls.controller.LoginController">
+   <children>
+      <AnchorPane fx:id="panelForm" layoutX="151.0" layoutY="34.0" prefHeight="388.0" prefWidth="326.0" styleClass="login-form">
+         <children>
+            <ImageView fitHeight="109.0" fitWidth="149.0" layoutX="109.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/logo.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="192.0" layoutY="135.0" text="%login.email.label" />
+            <TextField fx:id="username" layoutX="63.0" layoutY="163.0" prefHeight="42.0" prefWidth="149.0" />
+            <Label layoutX="209.0" layoutY="206.0" text="%login.password.label" />
+            <PasswordField fx:id="password" layoutX="63.0" layoutY="233.0" prefHeight="31.0" prefWidth="149.0" />
+            <Button fx:id="button" layoutX="63.0" layoutY="282.0" mnemonicParsing="false" onAction="#onSubmit" prefHeight="31.0" prefWidth="200.0" text="%login.registration-button.label" />
+            <Text fx:id="message" layoutX="64.0" layoutY="377.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="login-button" wrappingWidth="199.99999701976776" />
+            <Hyperlink layoutX="114.0" layoutY="318.0" text="%login.forgot-password.label" />
+            <Hyperlink layoutX="97.0" layoutY="339.0" text="%login.link.press-here.label" />
+            <Label layoutX="158.0" layoutY="342.0" text="%login.link.register-new-user.label" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

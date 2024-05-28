@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/tolllane-system.iml" filepath="$PROJECT_DIR$/tolllane-system.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tolllane-system-backend.iml" filepath="$PROJECT_DIR$/tolllane-system-backend.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tolllane-system-fx-ui/tolllane-system-fx-ui.iml" filepath="$PROJECT_DIR$/tolllane-system-fx-ui/tolllane-system-fx-ui.iml" />
+    </modules>
+  </component>
+</project>
