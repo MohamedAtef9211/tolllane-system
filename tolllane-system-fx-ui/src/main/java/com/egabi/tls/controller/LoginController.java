@@ -1,6 +1,7 @@
 package com.egabi.tls.controller;
 
-import com.egabi.tls.service.CustomService;
+import com.egabi.tls.model.User;
+import com.egabi.tls.service.LoginService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -19,7 +20,7 @@ import java.util.ResourceBundle;
 @Controller
 public class LoginController extends BaseFxController{
     @Autowired
-    private CustomService customService;
+    private LoginService loginService;
     @FXML
     public TextField username;
     @FXML
@@ -34,7 +35,7 @@ public class LoginController extends BaseFxController{
     private Text message;
     @Override
     public String getFxmlViewPath() {
-        return "/ui/login-view.fxml";
+        return "/ui/views/login-view.fxml";
     }
 
     @Override
@@ -49,12 +50,12 @@ public class LoginController extends BaseFxController{
     }
 
     public void onSubmit(ActionEvent actionEvent) throws IOException {
-        if(StringUtils.isEmpty(username.getText())) {
-            message.setText("please enter username");
+        if(StringUtils.isEmpty(username.getText()) || StringUtils.isEmpty(password.getText())) {
+            message.setText("please enter required data");
             return;
         }
 
-        boolean match = customService.appUsers().stream().anyMatch(user -> user.getUsername().toLowerCase().equalsIgnoreCase(username.getText()));
+        boolean match = loginService.login(new User(username.getText(),password.getText()));
 
         if(!match){
             message.setText("username not found");

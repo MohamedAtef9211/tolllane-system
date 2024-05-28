@@ -1,2 +1,3 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.egabi.tls.service.CustomService
+com.egabi.tls.service.CustomService,\
+com.egabi.tls.service.LoginService
