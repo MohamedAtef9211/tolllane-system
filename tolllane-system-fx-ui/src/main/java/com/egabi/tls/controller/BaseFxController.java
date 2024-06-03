@@ -1,7 +1,7 @@
 package com.egabi.tls.controller;
 
 import com.egabi.tls.TollaneJavaFxApplication;
-import com.egabi.tls.controller.model.ViewLoader;
+import com.egabi.tls.model.ViewLoader;
 import com.egabi.tls.service.LoginService;
 import com.egabi.tls.utils.ClassUtils;
 import com.egabi.tls.utils.JavaFxUtils;

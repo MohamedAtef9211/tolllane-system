@@ -1,15 +1,16 @@
 @font-face {
-    font-family: 'Cairo';
-    src: url('/ui/font/Cairo-Regular.ttf');
+    font-family: 'Almarai';
+    src: url('/ui/font/Almarai-Regular.ttf');
 }
 
 .root {
-    -fx-font-family: 'Cairo';
+    -fx-font-family: 'Almarai';
 }
 
 .login-panel{
     -fx-background-image:url('/ui/images/background-image.jpg');
     -fx-background-size:cover;
+    -filter: grayscale(1);
 }
 
 .login-form{
@@ -23,6 +24,13 @@
 .button{
     -fx-text-fill: white ;
     -fx-background-color: #49a93f;
+    -fx-border-radius: 3;
+    -fx-background-radius: 3;
+}
+
+.selected-button{
+    -fx-text-fill: white ;
+    -fx-background-color: blue !important;
     -fx-border-radius: 3;
     -fx-background-radius: 3;
 }
@@ -54,7 +62,7 @@
 
 .login-button{
     -fx-background-color: red override;
-    -fx-font-size: 12px; /* Optional: set font size to match */
+    -fx-font-size: 12px;
 }
 
 .hyperlink {

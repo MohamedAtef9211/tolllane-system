@@ -9,7 +9,7 @@ import java.util.Map;
 @Service
 public class UpdateService {
 
-    public void updateControllerData(BaseFxController  controller , Map<String,Object> values){
+    public void updateControllerData(BaseFxController controller , Map<String,Object> values){
         Platform.runLater(() -> {
             if (values != null && !values.isEmpty()) {
                 values.forEach((s, o) -> controller.additionalValues.put(s,o));

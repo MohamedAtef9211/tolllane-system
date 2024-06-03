@@ -1,4 +1,4 @@
-package com.egabi.tls.controller.model;
+package com.egabi.tls.model;
 
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
