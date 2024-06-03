@@ -12,15 +12,8 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 @Service("scheduler")
-@Primary
-public class SchedulerFetch implements FetchData{
+public class SchedulerFetch {
     private ScheduledExecutorService scheduledExecutorService;
-
-    private final UpdateService updateService;
-
-    public SchedulerFetch(UpdateService updateService) {
-        this.updateService = updateService;
-    }
 
     @PostConstruct
     public void init(){
@@ -28,10 +21,8 @@ public class SchedulerFetch implements FetchData{
         scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
     }
 
-    @Override
     public void fetchAndUpdateDataScene(BaseFxController controller, Map<String, Object> values) {
         scheduledExecutorService.scheduleAtFixedRate(() -> {
-            updateService.updateControllerData(controller,values);
         }, 0, 2000, TimeUnit.MILLISECONDS);
     }
 

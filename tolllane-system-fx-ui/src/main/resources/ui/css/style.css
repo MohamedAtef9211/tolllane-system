@@ -75,3 +75,15 @@
 .hyperlink:hover {
     -fx-text-fill: darkblue;
 }
+
+.headline{
+    -fx-background-color: #49A93F;
+    -fx-text-fill: white ;
+    -fx-border-width: 1px;
+    -fx-padding: 10px 40px 10px 40px;
+    -fx-alignment: CENTER_RIGHT;
+    -fx-font-size: 18px;
+    -fx-font-weight: 400;
+    -fx-border-radius: 16px;
+    -fx-background-radius: 16px;
+}

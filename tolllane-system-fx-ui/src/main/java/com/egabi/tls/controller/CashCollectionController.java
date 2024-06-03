@@ -42,10 +42,6 @@ public class CashCollectionController extends BaseFxController {
     @FXML
     private HBox queueBox;
 
-    public void payInCashAction(ActionEvent event) {
-        endProcess();
-    }
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         super.initialize(url, resourceBundle);
@@ -132,6 +128,10 @@ public class CashCollectionController extends BaseFxController {
                 vehicleTypeBox.getChildren().add(button);
             });
         }
+    }
+
+    public void payInCashAction(ActionEvent event) {
+        endProcess();
     }
 
     public void endProcess() {
