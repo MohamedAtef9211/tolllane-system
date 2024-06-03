@@ -4,8 +4,6 @@ import com.egabi.tls.controller.BaseFxController;
 import com.egabi.tls.controller.CashCollectionController;
 import com.egabi.tls.controller.LoginController;
 import com.egabi.tls.model.ViewLoader;
-import com.egabi.tls.service.FetchData;
-import com.egabi.tls.utils.ScreenUtils;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
@@ -16,13 +14,10 @@ import org.springframework.context.ConfigurableApplicationContext;
 public class TollaneJavaFxApplication extends Application {
 
     private static ConfigurableApplicationContext applicationContext;
-    @Qualifier("scheduler")
-    private FetchData fetchData;
 
     @Override
-    public void init() throws Exception {
+    public void init() {
         this.applicationContext = SpringApplication.run(TollaneUISpringApplication.class);
-        this.fetchData = this.applicationContext.getBean(FetchData.class);
     }
 
     @Override
@@ -32,7 +27,7 @@ public class TollaneJavaFxApplication extends Application {
         stage = loader.getStage();
 //        stage.setHeight(ScreenUtils.SCREEN_HEIGHT);
 //        stage.setWidth(ScreenUtils.SCREEN_WIDTH);
-//        stage.setMaximized(true);
+        stage.setMaximized(true);
         stage.resizableProperty().setValue(Boolean.FALSE);
         stage.show();
         Stage finalStage = stage;
@@ -40,10 +35,6 @@ public class TollaneJavaFxApplication extends Application {
             event.consume();
             homePage.closureAction(finalStage);
         });
-//        BaseFxController controller = loader.getLoader().getController();
-//        Map<String,Object> values = new HashMap<>();
-//        values.put(LoginController.LoginAttributes.USERNAME.name(),"start");
-//        fetchData.fetchAndUpdateDataScene(controller,values);
     }
 
     @Override
