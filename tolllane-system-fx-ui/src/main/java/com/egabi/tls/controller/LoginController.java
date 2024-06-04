@@ -21,6 +21,9 @@ import java.util.ResourceBundle;
 public class LoginController extends BaseFxController{
     @Autowired
     private LoginService loginService;
+
+    @Autowired
+    private CashCollectionController cashCollectionController;
     @FXML
     public TextField username;
     @FXML
@@ -50,20 +53,20 @@ public class LoginController extends BaseFxController{
     }
 
     public void onSubmit(ActionEvent actionEvent) throws IOException {
-        if(StringUtils.isEmpty(username.getText()) || StringUtils.isEmpty(password.getText())) {
-            message.setText("please enter required data");
-            return;
-        }
-
-        boolean match = loginService.login(new User(username.getText(),password.getText()));
-
-        if(!match){
-            message.setText("username not found");
-            return;
-        }
-
-        message.setText("Login Successfully");
-        //JAVA_FX_UTILS.navigateToController(testView,actionEvent,null);
+//        if(StringUtils.isEmpty(username.getText()) || StringUtils.isEmpty(password.getText())) {
+//            message.setText("please enter required data");
+//            return;
+//        }
+//
+//        boolean match = loginService.login(new User(username.getText(),password.getText()));
+//
+//        if(!match){
+//            message.setText("username not found");
+//            return;
+//        }
+//
+//        message.setText("Login Successfully");
+        JAVA_FX_UTILS.navigateToController(cashCollectionController,actionEvent,null);
     }
 
     @Override

@@ -27,8 +27,8 @@ public class TollaneJavaFxApplication extends Application {
         stage = loader.getStage();
 //        stage.setHeight(ScreenUtils.SCREEN_HEIGHT);
 //        stage.setWidth(ScreenUtils.SCREEN_WIDTH);
-        stage.setMaximized(true);
-        stage.resizableProperty().setValue(Boolean.FALSE);
+        //stage.setMaximized(true);
+        //stage.resizableProperty().setValue(Boolean.FALSE);
         stage.show();
         Stage finalStage = stage;
         stage.setOnCloseRequest(event -> {
@@ -48,6 +48,6 @@ public class TollaneJavaFxApplication extends Application {
     }
 
     private BaseFxController loadHomePage(){
-        return new CashCollectionController();
+        return new LoginController();
     }
 }

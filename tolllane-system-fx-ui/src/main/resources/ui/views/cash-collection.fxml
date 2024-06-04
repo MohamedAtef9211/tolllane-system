@@ -9,42 +9,53 @@
 <?import javafx.scene.layout.VBox?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="682.0" prefWidth="975.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.egabi.tls.controller.CashCollectionController">
-   <top>
-   </top>
-   <bottom>
-   </bottom>
-   <center>
+    <top>
+    </top>
+    <bottom>
+    </bottom>
+    <center>
 
-   </center>
-   <right>
-   </right>
-   <left>
-   </left>
-   <center>
-      <VBox alignment="CENTER" maxHeight="200.0" maxWidth="500.0" minHeight="200.0" minWidth="200.0" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
-         <Button fx:id="payInCashButton" mnemonicParsing="false" onAction="#payInCashAction" text="نصف نقل" BorderPane.alignment="CENTER">
-      </Button>
-         <TextField fx:id="plateNumberText" prefHeight="25.0" prefWidth="525.0" />
-         <HBox prefHeight="100.0" prefWidth="200.0">
+    </center>
+    <right>
+    </right>
+    <left>
+    </left>
+    <center>
+        <VBox alignment="CENTER" maxHeight="200.0" maxWidth="500.0" minHeight="200.0" minWidth="200.0" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+            <Button fx:id="payInCashButton" mnemonicParsing="false" onAction="#payInCashAction" text="نصف نقل" BorderPane.alignment="CENTER">
+            </Button>
+            <TextField fx:id="plateNumberText" prefHeight="25.0" prefWidth="525.0" />
+            <HBox prefHeight="100.0" prefWidth="200.0">
+                <children>
+                    <Button mnemonicParsing="false" onAction="#createManualVehicleRecord" prefHeight="25.0" prefWidth="87.0" text="Add" textAlignment="CENTER" />
+                    <HBox fx:id="queueBox" prefHeight="100.0" prefWidth="465.0">
+                        <padding>
+                            <Insets left="10.0" right="10.0" />
+                        </padding>
+                        <HBox.margin>
+                            <Insets left="10.0" right="10.0" />
+                        </HBox.margin>
+                    </HBox>
+                </children>
+            </HBox>
+        </VBox>
+
+    </center>
+    <top>
+    </top>
+    <right>
+        <VBox alignment="CENTER" prefHeight="682.0" prefWidth="250.0" spacing="10.0" BorderPane.alignment="CENTER">
             <children>
-               <Button mnemonicParsing="false" onAction="#createManualVehicleRecord" prefHeight="25.0" prefWidth="87.0" text="Add" />
-               <HBox fx:id="queueBox" prefHeight="100.0" prefWidth="465.0">
-                  <padding>
-                     <Insets left="10.0" right="10.0" />
-                  </padding>
-                  <HBox.margin>
-                     <Insets left="10.0" right="10.0" />
-                  </HBox.margin>
-               </HBox>
+                <Label styleClass="headline" stylesheets="@../css/style.css" text="Label" />
+                <VBox fx:id="vehicleTypeBox" alignment="CENTER" prefHeight="682.0" prefWidth="250.0" spacing="10.0" BorderPane.alignment="CENTER">
+                    <padding>
+                        <Insets right="20.0" />
+                    </padding>
+                </VBox>
             </children>
-         </HBox>
-         <Label styleClass="headline" stylesheets="@../css/style.css" text="Label" />
-      </VBox>
-
-   </center>
-   <top>
-   </top>
-   <right>
-      <VBox fx:id="vehicleTypeBox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" BorderPane.alignment="CENTER" />
-   </right>
+         <BorderPane.margin>
+            <Insets top="20.0" />
+         </BorderPane.margin>
+        </VBox>
+    </right>
 </BorderPane>

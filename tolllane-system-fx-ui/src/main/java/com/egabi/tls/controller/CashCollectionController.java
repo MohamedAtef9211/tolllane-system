@@ -1,5 +1,7 @@
 package com.egabi.tls.controller;
 
+import com.egabi.tls.config.LaneDataConfig;
+import com.egabi.tls.controller.component.VehicleInfoBox;
 import com.egabi.tls.controller.component.VehicleTypeButton;
 import com.egabi.tls.event.AddNewVehicleEvent;
 import com.egabi.tls.model.Axes;
@@ -28,6 +30,9 @@ public class CashCollectionController extends BaseFxController {
     @Autowired
     private VehiclesTypesService vehiclesTypesService;
 
+    @Autowired
+    private LaneDataConfig laneDataConfig;
+
     private Queue<Vehicle> vehicleQueue = new LinkedList<>();
 
     private Vehicle currentVehicle;
@@ -40,15 +45,27 @@ public class CashCollectionController extends BaseFxController {
     @FXML
     private Button payInCashButton;
     @FXML
-    private HBox queueBox;
+    private HBox queueBox = new HBox();
+
+    private boolean isPageInitialized = false;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        System.err.println("inside initialize");
+        System.err.println("laneData " + laneDataConfig.getLaneData().getLaneRoad());
         super.initialize(url, resourceBundle);
+        isPageInitialized = true;
         vehicleTypeList = vehiclesTypesService.findAllVehicles();
-        renderVehicleTypes();
         checkRenderingVehicle();
-
+        renderVehicleTypes();
+        if(queueBox != null && queueBox.getChildren().isEmpty()) {
+            vehicleQueue.forEach(vehicle -> {
+                Platform.runLater(() -> {
+                    Button vehicleButton = new Button(vehicle.getPlateNo());
+                    queueBox.getChildren().add(vehicleButton);
+                });
+            });
+        }
     }
 
     @EventListener
@@ -56,17 +73,19 @@ public class CashCollectionController extends BaseFxController {
         System.err.println("inside addVehicleToQueueListener");
         addVehicleToQueue(event.getVehicle());
 
-        if (currentVehicle == null) {
+        if (currentVehicle == null && isPageInitialized) {
             renderPageWithVehicleData();
         }
     }
 
     private void addVehicleToQueue(Vehicle vehicle) {
         vehicleQueue.add(vehicle);
-        Platform.runLater(() -> {
-            Button vehicleButton = new Button(vehicle.getPlateNo());
-            queueBox.getChildren().add(vehicleButton);
-        });
+        if(queueBox != null) {
+            Platform.runLater(() -> {
+                Button vehicleButton = new Button(vehicle.getPlateNo());
+                queueBox.getChildren().add(vehicleButton);
+            });
+        }
     }
 
     public void createManualVehicleRecord(ActionEvent event) {
@@ -115,7 +134,8 @@ public class CashCollectionController extends BaseFxController {
         //vehicleTypeBox.getChildren().removeAll();
         if (!vehicleTypeList.isEmpty()) {
             vehicleTypeList.forEach(vehicleType -> {
-                VehicleTypeButton button = new VehicleTypeButton(vehicleType.getDesc(), vehicleType);
+                VehicleTypeButton button = new VehicleTypeButton(vehicleType.getDesc(), vehicleType,(currentVehicle == null ? false
+                        : currentVehicle.getVehicleType().equalsIgnoreCase(vehicleType.getCode())));
                 button.setOnAction(event -> {
                     vehicleTypeBox.getChildren().clear();
                     currentVehicle.setVehicleType(button.getVehicleType().getCode());
@@ -126,6 +146,8 @@ public class CashCollectionController extends BaseFxController {
                     button.getStyleClass().add("selected-button");
                 }
                 vehicleTypeBox.getChildren().add(button);
+                VehicleInfoBox vehicleInfoBox = new VehicleInfoBox(currentVehicle);
+                vehicleTypeBox.getChildren().add(vehicleInfoBox);
             });
         }
     }
@@ -150,6 +172,7 @@ public class CashCollectionController extends BaseFxController {
 
     private void renderEmptyVehicleData() {
         System.err.println("inside renderEmptyVehicleData");
+        currentVehicle = null;
         plateNumberText.setText("NAN");
     }
 
