@@ -1,7 +1,6 @@
 package com.egabi.tls.service;
 
 import com.egabi.tls.controller.BaseFxController;
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;

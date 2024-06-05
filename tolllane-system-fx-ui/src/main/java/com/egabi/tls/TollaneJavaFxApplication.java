@@ -2,13 +2,11 @@ package com.egabi.tls;
 
 import com.egabi.tls.controller.BaseFxController;
 import com.egabi.tls.controller.CashCollectionController;
-import com.egabi.tls.controller.LoginController;
 import com.egabi.tls.model.ViewLoader;
 import com.egabi.tls.utils.ScreenUtils;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 

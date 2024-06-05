@@ -14,7 +14,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -28,7 +27,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import java.util.ResourceBundle;
-import java.util.concurrent.atomic.AtomicInteger;
 
 @Controller
 public class CashCollectionController extends BaseFxController {
@@ -78,26 +76,13 @@ public class CashCollectionController extends BaseFxController {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.err.println("inside initialize");
         isPageInitialized = true;
         vehicleTypeList = vehiclesTypesService.findAllVehicles();
         renderLaneData();
         checkRenderingVehicle();
-//        renderVehicleTypes();
         if(queueBox != null && queueBox.getChildren().isEmpty()) {
             generateVehicleInfoBox();
         }
-    }
-
-    private void generateVehicleInfoBox() {
-        queueBox.getChildren().clear();
-        vehicleQueue.forEach(vehicle -> {
-            Platform.runLater(() -> {
-                VehicleInfoBox vehicleButton = new VehicleInfoBox(vehicle,  queueBox.getChildren().isEmpty());
-                vehicleButton.getDeleteImage().setOnMouseClicked(event -> endProcess());
-                queueBox.getChildren().add(vehicleButton);
-            });
-        });
     }
 
     private void renderLaneData() {
@@ -117,10 +102,7 @@ public class CashCollectionController extends BaseFxController {
     }
 
     private void renderPageWithVehicleData() {
-        System.err.println("inside printEventData and Queue size is " + vehicleQueue.size());
         currentVehicle = vehicleQueue.element();
-        System.out.println("currentVehicle = " + currentVehicle);
-        System.err.println("inside printEventData and Queue size is " + vehicleQueue.size());
         Platform.runLater(() -> {
             vehicleTypeBox.getChildren().clear();
             renderVehicleTypes();
@@ -130,7 +112,6 @@ public class CashCollectionController extends BaseFxController {
     }
 
     private void renderEmptyVehicleData() {
-        System.err.println("inside renderEmptyVehicleData");
         currentVehicle = null;
         vehicleTypeBox.getChildren().clear();
         renderVehicleTypes();
@@ -164,18 +145,14 @@ public class CashCollectionController extends BaseFxController {
 
     private void updateVehicleTypeWithData(Vehicle vehicle){
         VehicleType vehicleType = getVehicleByCode(vehicle.getVehicleType());
-        //TODO Get new fees and isFeesCalculated
         feesAmount.setText(vehicleType.getFees() + "");
-        //TODO: Update fees image with new one
         vehicleTypeImage.setImage(new Image(VehicleTypeIcons.getImagePath(vehicleType.getCode().toUpperCase())));
         vehicleTypeInfo.setText(vehicleType.getDesc());
     }
 
     @EventListener
     public void addVehicleToQueueListener(AddNewVehicleEvent event) {
-        System.err.println("inside addVehicleToQueueListener");
         addVehicleToQueue(event.getVehicle());
-
         if (currentVehicle == null && isPageInitialized) {
             renderPageWithVehicleData();
         }
@@ -203,7 +180,6 @@ public class CashCollectionController extends BaseFxController {
                 "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAYjPcPAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAASUVORK5CYII="
         );
         addVehicleToFirstOfQueue(currentVehicle);
-
     }
 
     private void addVehicleToFirstOfQueue(Vehicle vehicle) {
@@ -220,9 +196,19 @@ public class CashCollectionController extends BaseFxController {
         if (vehicleQueue != null && !vehicleQueue.isEmpty()) {
             vehicleQueue.remove();
         }
-        System.err.println("inside endPayment and Queue size is " + vehicleQueue.size());
         currentVehicle = null;
         checkRenderingVehicle();
+    }
+
+    private void generateVehicleInfoBox() {
+        queueBox.getChildren().clear();
+        vehicleQueue.forEach(vehicle -> {
+            Platform.runLater(() -> {
+                VehicleInfoBox vehicleButton = new VehicleInfoBox(vehicle,  queueBox.getChildren().isEmpty());
+                vehicleButton.getDeleteImage().setOnMouseClicked(event -> endProcess());
+                queueBox.getChildren().add(vehicleButton);
+            });
+        });
     }
 
     public void addVehicleToFront(Vehicle vehicle) {

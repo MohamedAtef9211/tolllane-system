@@ -2,17 +2,15 @@ package com.egabi.tls.controller.component;
 
 import com.egabi.tls.model.VehicleType;
 import com.egabi.tls.model.VehicleTypeIcons;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-
-import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import lombok.Data;
 
 import java.io.IOException;
 import java.net.URL;

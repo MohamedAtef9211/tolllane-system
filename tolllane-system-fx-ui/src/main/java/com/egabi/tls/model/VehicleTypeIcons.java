@@ -1,7 +1,5 @@
 package com.egabi.tls.model;
 
-import lombok.Getter;
-
 import java.util.HashMap;
 import java.util.Map;
 

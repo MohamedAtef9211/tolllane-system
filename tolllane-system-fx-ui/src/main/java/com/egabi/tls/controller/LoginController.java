@@ -1,6 +1,5 @@
 package com.egabi.tls.controller;
 
-import com.egabi.tls.model.User;
 import com.egabi.tls.service.LoginService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,7 +10,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
 
 import java.io.IOException;
 import java.net.URL;

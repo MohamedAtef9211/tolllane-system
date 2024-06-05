@@ -13,13 +13,11 @@ public class LoginService {
     }
 
     public boolean login(User user){
-        System.err.println("inside Login");
         return appUsers().stream().anyMatch(userObj -> userObj.getUsername().toLowerCase().equalsIgnoreCase(user.getUsername())
                 && userObj.getPassword().toLowerCase().equalsIgnoreCase(user.getPassword()));
     }
 
     public boolean logout(){
-        System.err.println("inside logout");
         return true;
     }
 }
