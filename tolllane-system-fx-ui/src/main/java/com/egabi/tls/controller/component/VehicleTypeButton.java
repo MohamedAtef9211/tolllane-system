@@ -18,9 +18,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-@Data
 public class VehicleTypeButton extends Button implements Initializable {
 
+    @FXML
+    private Button rootButton;
     @FXML
     private Separator seperator;
 
@@ -53,16 +54,15 @@ public class VehicleTypeButton extends Button implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         vehicleLabel.setText(vehicleType.getDesc());
-        String imagePath = VehicleTypeIcons.getImagePath(vehicleType.getCode().toUpperCase());
-        System.err.println("imagePath = " + imagePath);
-        Image image = new Image(imagePath);
-        if (!isSelected) {
+        if (isSelected) {
             ColorAdjust grayscaleEffect = new ColorAdjust();
             grayscaleEffect.setSaturation(-100);
             grayscaleEffect.setBrightness(-100.5);
             grayscaleEffect.setContrast(-100.0);
             vehicleImage.setEffect(grayscaleEffect);
+            rootButton.getStyleClass().removeAll();
+            rootButton.getStyleClass().add("selected-button");
         }
-        vehicleImage.setImage(image);
+        vehicleImage.setImage(new Image(VehicleTypeIcons.getImagePath(vehicleType.getCode().toUpperCase())));
     }
 }

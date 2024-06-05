@@ -26,6 +26,10 @@ public enum VehicleTypeIcons {
     }
 
     public static String getImagePath(String vehicleTypeName) {
-        return imagePathsMap.get(vehicleTypeName.toUpperCase());
+        String imagePath = imagePathsMap.get(vehicleTypeName.toUpperCase());
+        if(imagePath == null)
+            return "/ui/images/vehicletypes/private.png";
+
+        return imagePath;
     }
 }

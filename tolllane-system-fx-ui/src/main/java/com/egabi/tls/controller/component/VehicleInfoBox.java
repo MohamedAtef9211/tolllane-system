@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import lombok.Getter;
 
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -51,8 +52,8 @@ public class VehicleInfoBox extends AnchorPane implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //String imagePath = VehicleTypeIcons.getImagePath(vehicle.getVehicleType().toUpperCase());
-        String imagePath = VehicleTypeIcons.getImagePath("PRIVATE");
+        String imagePath = VehicleTypeIcons.getImagePath(vehicle.getVehicleType().toUpperCase());
+//        String imagePath = VehicleTypeIcons.getImagePath("PRIVATE");
         Image image = new Image(imagePath);
         if (!isSelected) {
             ColorAdjust grayscaleEffect = new ColorAdjust();
@@ -69,6 +70,6 @@ public class VehicleInfoBox extends AnchorPane implements Initializable {
             rootPane.getChildren().remove(deleteImage);
         }
         vehicleImage.setImage(image);
-        plateNumber.setText("د رج 5386");
+        plateNumber.setText(vehicle.getPlateNo());
     }
 }

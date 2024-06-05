@@ -7,14 +7,16 @@ import com.egabi.tls.event.AddNewVehicleEvent;
 import com.egabi.tls.model.Axes;
 import com.egabi.tls.model.Vehicle;
 import com.egabi.tls.model.VehicleType;
+import com.egabi.tls.model.VehicleTypeIcons;
 import com.egabi.tls.service.VehiclesTypesService;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import java.util.ResourceBundle;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Controller
 public class CashCollectionController extends BaseFxController {
@@ -42,8 +45,6 @@ public class CashCollectionController extends BaseFxController {
     private List<VehicleType> vehicleTypeList;
     @FXML
     private VBox vehicleTypeBox;
-    @FXML
-    private TextField plateNumberText;
     @FXML
     private Button payInCashButton;
     @FXML
@@ -64,25 +65,39 @@ public class CashCollectionController extends BaseFxController {
     @FXML
     private Label laneType;
 
+    @FXML
+    private Label feesAmount;
+
+    @FXML
+    private ImageView vehicleTypeImage;
+
+    @FXML
+    private Label vehicleTypeInfo;
+
     private boolean isPageInitialized = false;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         System.err.println("inside initialize");
-        super.initialize(url, resourceBundle);
         isPageInitialized = true;
         vehicleTypeList = vehiclesTypesService.findAllVehicles();
-        checkRenderingVehicle();
-        renderVehicleTypes();
         renderLaneData();
+        checkRenderingVehicle();
+//        renderVehicleTypes();
         if(queueBox != null && queueBox.getChildren().isEmpty()) {
-            vehicleQueue.forEach(vehicle -> {
-                Platform.runLater(() -> {
-                    Button vehicleButton = new Button(vehicle.getPlateNo());
-                    queueBox.getChildren().add(vehicleButton);
-                });
-            });
+            generateVehicleInfoBox();
         }
+    }
+
+    private void generateVehicleInfoBox() {
+        queueBox.getChildren().clear();
+        vehicleQueue.forEach(vehicle -> {
+            Platform.runLater(() -> {
+                VehicleInfoBox vehicleButton = new VehicleInfoBox(vehicle,  queueBox.getChildren().isEmpty());
+                vehicleButton.getDeleteImage().setOnMouseClicked(event -> endProcess());
+                queueBox.getChildren().add(vehicleButton);
+            });
+        });
     }
 
     private void renderLaneData() {
@@ -91,6 +106,69 @@ public class CashCollectionController extends BaseFxController {
         collectorUser.setText("TC002");
         laneRoad.setText(laneDataConfig.getLaneData().getLaneRoad());
         laneType.setText(laneDataConfig.getLaneData().getLaneType());
+    }
+
+    private void checkRenderingVehicle() {
+        if (!vehicleQueue.isEmpty()) {
+            renderPageWithVehicleData();
+        } else {
+            renderEmptyVehicleData();
+        }
+    }
+
+    private void renderPageWithVehicleData() {
+        System.err.println("inside printEventData and Queue size is " + vehicleQueue.size());
+        currentVehicle = vehicleQueue.element();
+        System.out.println("currentVehicle = " + currentVehicle);
+        System.err.println("inside printEventData and Queue size is " + vehicleQueue.size());
+        Platform.runLater(() -> {
+            vehicleTypeBox.getChildren().clear();
+            renderVehicleTypes();
+            generateVehicleInfoBox();
+            updateVehicleTypeWithData(currentVehicle);
+        });
+    }
+
+    private void renderEmptyVehicleData() {
+        System.err.println("inside renderEmptyVehicleData");
+        currentVehicle = null;
+        vehicleTypeBox.getChildren().clear();
+        renderVehicleTypes();
+        queueBox.getChildren().clear();
+        feesAmount.setText("0");
+        //TODO: Update fees image with new one
+        vehicleTypeImage.setImage(new Image(VehicleTypeIcons.getImagePath("NaN")));
+        vehicleTypeInfo.setText("لا يوجد");
+    }
+
+    private void renderVehicleTypes() {
+        if (!vehicleTypeList.isEmpty()) {
+            vehicleTypeList.forEach(vehicleType -> {
+                VehicleTypeButton button = new VehicleTypeButton(vehicleType.getDesc(), vehicleType,(currentVehicle == null ? false
+                        : currentVehicle.getVehicleType().equalsIgnoreCase(vehicleType.getCode())));
+                button.setOnAction(event -> {
+                    currentVehicle.setVehicleType(vehicleType.getCode());
+                    onSelectVehicle(event,vehicleType);
+                });
+                vehicleTypeBox.getChildren().add(button);
+            });
+        }
+    }
+
+    private void onSelectVehicle(ActionEvent event, VehicleType vehicleType){
+        vehicleTypeBox.getChildren().clear();
+        renderVehicleTypes();
+        generateVehicleInfoBox();
+        updateVehicleTypeWithData(currentVehicle);
+    }
+
+    private void updateVehicleTypeWithData(Vehicle vehicle){
+        VehicleType vehicleType = getVehicleByCode(vehicle.getVehicleType());
+        //TODO Get new fees and isFeesCalculated
+        feesAmount.setText(vehicleType.getFees() + "");
+        //TODO: Update fees image with new one
+        vehicleTypeImage.setImage(new Image(VehicleTypeIcons.getImagePath(vehicleType.getCode().toUpperCase())));
+        vehicleTypeInfo.setText(vehicleType.getDesc());
     }
 
     @EventListener
@@ -107,7 +185,8 @@ public class CashCollectionController extends BaseFxController {
         vehicleQueue.add(vehicle);
         if(queueBox != null) {
             Platform.runLater(() -> {
-                Button vehicleButton = new Button(vehicle.getPlateNo());
+                VehicleInfoBox vehicleButton = new VehicleInfoBox(vehicle,  queueBox.getChildren().isEmpty());
+                    vehicleButton.getDeleteImage().setOnMouseClicked(event -> endProcess());
                 queueBox.getChildren().add(vehicleButton);
             });
         }
@@ -129,54 +208,8 @@ public class CashCollectionController extends BaseFxController {
 
     private void addVehicleToFirstOfQueue(Vehicle vehicle) {
         addVehicleToFront(vehicle);
-        queueBox.getChildren().clear();
-        vehicleQueue.forEach(vehicleObj -> {
-            Platform.runLater(() -> {
-                Button vehicleButton = new Button(vehicleObj.getPlateNo());
-                queueBox.getChildren().add(vehicleButton);
-            });
-        });
+        generateVehicleInfoBox();
         renderPageWithVehicleData();
-    }
-
-    private void renderPageWithVehicleData() {
-        System.err.println("inside printEventData and Queue size is " + vehicleQueue.size());
-        currentVehicle = vehicleQueue.element();
-        System.out.println("currentVehicle = " + currentVehicle);
-        System.err.println("inside printEventData and Queue size is " + vehicleQueue.size());
-        plateNumberText.setText(currentVehicle.getPlateNo());
-    }
-
-    private void checkRenderingVehicle() {
-        if (!vehicleQueue.isEmpty()) {
-            renderPageWithVehicleData();
-        } else {
-            renderEmptyVehicleData();
-        }
-    }
-
-    private void renderVehicleTypes() {
-        //vehicleTypeBox.getChildren().removeAll();
-        if (!vehicleTypeList.isEmpty()) {
-            vehicleTypeList.forEach(vehicleType -> {
-                VehicleTypeButton button = new VehicleTypeButton(vehicleType.getDesc(), vehicleType,(currentVehicle == null ? false
-                        : currentVehicle.getVehicleType().equalsIgnoreCase(vehicleType.getCode())));
-                button.setOnAction(event -> {
-                    vehicleTypeBox.getChildren().clear();
-                    currentVehicle.setVehicleType(button.getVehicleType().getCode());
-                    plateNumberText.setText(vehicleType.getCode());
-                });
-                if (currentVehicle != null && vehicleType.getCode().equalsIgnoreCase(currentVehicle.getVehicleType())) {
-                    button.getStyleClass().removeAll();
-                    button.getStyleClass().add("selected-button");
-                }
-                vehicleTypeBox.getChildren().add(button);
-            });
-            VehicleInfoBox vehicleInfoBox = new VehicleInfoBox(currentVehicle ,true);
-            vehicleTypeBox.getChildren().add(vehicleInfoBox);
-            vehicleInfoBox = new VehicleInfoBox(currentVehicle ,false);
-            vehicleTypeBox.getChildren().add(vehicleInfoBox);
-        }
     }
 
     public void payInCashAction(ActionEvent event) {
@@ -184,35 +217,22 @@ public class CashCollectionController extends BaseFxController {
     }
 
     public void endProcess() {
-            VehicleInfoBox node = (VehicleInfoBox) vehicleTypeBox.getChildren().get(4);
-            node = new VehicleInfoBox(node.getVehicle(),true);
-            System.err.println("Node is " + node);
-            System.err.println("Size is " + vehicleTypeBox.getChildren().size());
-        vehicleTypeBox.getChildren().remove(4);
-        vehicleTypeBox.getChildren().add(0,node);
-//            node.getStyleClass().clear();
-//            node.getStyleClass().add("vehicle-info-box");
         if (vehicleQueue != null && !vehicleQueue.isEmpty()) {
             vehicleQueue.remove();
-            queueBox.getChildren().clear();
-            vehicleQueue.forEach(vehicle -> {
-                Button vehicleButton = new Button(vehicle.getPlateNo());
-                queueBox.getChildren().add(vehicleButton);
-            });
         }
         System.err.println("inside endPayment and Queue size is " + vehicleQueue.size());
         currentVehicle = null;
         checkRenderingVehicle();
     }
 
-    private void renderEmptyVehicleData() {
-        System.err.println("inside renderEmptyVehicleData");
-        currentVehicle = null;
-        plateNumberText.setText("NAN");
-    }
-
     public void addVehicleToFront(Vehicle vehicle) {
         ((LinkedList<Vehicle>) vehicleQueue).addFirst(vehicle);
+    }
+
+    public VehicleType getVehicleByCode(String code) {
+        return vehicleTypeList.stream()
+                .filter(vehicle -> vehicle.getCode().equalsIgnoreCase(code))
+                .findFirst().orElse(null);
     }
 
     @Override
