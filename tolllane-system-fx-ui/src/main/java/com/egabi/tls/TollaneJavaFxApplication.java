@@ -4,6 +4,7 @@ import com.egabi.tls.controller.BaseFxController;
 import com.egabi.tls.controller.CashCollectionController;
 import com.egabi.tls.controller.LoginController;
 import com.egabi.tls.model.ViewLoader;
+import com.egabi.tls.utils.ScreenUtils;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
@@ -25,16 +26,16 @@ public class TollaneJavaFxApplication extends Application {
         BaseFxController homePage = loadHomePage();
         ViewLoader loader = homePage.loadView();
         stage = loader.getStage();
-//        stage.setHeight(ScreenUtils.SCREEN_HEIGHT);
-//        stage.setWidth(ScreenUtils.SCREEN_WIDTH);
-        //stage.setMaximized(true);
-        //stage.resizableProperty().setValue(Boolean.FALSE);
+        stage.setHeight(ScreenUtils.SCREEN_HEIGHT);
+        stage.setWidth(ScreenUtils.SCREEN_WIDTH);
+        stage.setMaximized(true);
+        stage.resizableProperty().setValue(Boolean.FALSE);
         stage.show();
-        Stage finalStage = stage;
-        stage.setOnCloseRequest(event -> {
-            event.consume();
-            homePage.closureAction(finalStage);
-        });
+//        Stage finalStage = stage;
+//        stage.setOnCloseRequest(event -> {
+//            event.consume();
+//            homePage.closureAction(finalStage);
+//        });
     }
 
     @Override
@@ -48,6 +49,6 @@ public class TollaneJavaFxApplication extends Application {
     }
 
     private BaseFxController loadHomePage(){
-        return new LoginController();
+        return new CashCollectionController();
     }
 }

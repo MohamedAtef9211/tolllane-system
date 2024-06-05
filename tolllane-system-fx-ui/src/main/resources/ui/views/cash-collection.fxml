@@ -3,31 +3,92 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="682.0" prefWidth="975.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.egabi.tls.controller.CashCollectionController">
-    <top>
-    </top>
-    <bottom>
-    </bottom>
     <center>
-
-    </center>
-    <right>
-    </right>
-    <left>
-    </left>
-    <center>
-        <VBox alignment="CENTER" maxHeight="200.0" maxWidth="500.0" minHeight="200.0" minWidth="200.0" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
-            <Button fx:id="payInCashButton" mnemonicParsing="false" onAction="#payInCashAction" text="نصف نقل" BorderPane.alignment="CENTER">
+        <VBox alignment="TOP_CENTER" BorderPane.alignment="TOP_CENTER">
+         <HBox prefHeight="100.0" prefWidth="200.0">
+            <children>
+               <HBox>
+                  <children>
+                     <ImageView fitHeight="371.0" fitWidth="629.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
+                        <image>
+                           <Image url="@../images/default-car.png" />
+                        </image>
+                     </ImageView>
+                  </children>
+               </HBox>
+               <VBox alignment="TOP_RIGHT" prefHeight="200.0" prefWidth="100.0" spacing="10.0" HBox.hgrow="ALWAYS">
+                  <children>
+                     <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="120.0" style="-fx-background-color: red;" styleClass="panel-detail">
+                        <children>
+                           <VBox prefHeight="200.0" prefWidth="100.0">
+                              <children>
+                                 <Label styleClass="fees-desc" text="رسم المرور" VBox.vgrow="ALWAYS" />
+                                 <Label styleClass="fees-amount" text="15" VBox.vgrow="ALWAYS" />
+                                 <Label styleClass="fees-desc" text="EGP" VBox.vgrow="ALWAYS" />
+                              </children>
+                              <HBox.margin>
+                                 <Insets />
+                              </HBox.margin>
+                           </VBox>
+                           <Separator orientation="VERTICAL" prefHeight="93.0" />
+                           <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                              <children>
+                                 <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
+                                    <image>
+                                       <Image url="@../images/vehicletypes/half-loader.png" />
+                                    </image>
+                                 </ImageView>
+                                 <Label styleClass="vehicle-type-label" text="نصف نقل" VBox.vgrow="ALWAYS" />
+                              </children>
+                           </VBox>
+                           <Separator orientation="VERTICAL" prefHeight="200.0" HBox.hgrow="ALWAYS">
+                              <HBox.margin>
+                                 <Insets right="10.0" />
+                              </HBox.margin>
+                           </Separator>
+                        </children>
+                        <VBox.margin>
+                           <Insets />
+                        </VBox.margin>
+                        <padding>
+                           <Insets bottom="15.0" top="15.0" />
+                        </padding></HBox>
+                     <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: blue;" styleClass="panel-detail" />
+                  </children>
+                  <HBox.margin>
+                     <Insets left="10.0" right="10.0" />
+                  </HBox.margin>
+               </VBox>
+            </children>
+         </HBox>
+         <HBox prefHeight="100.0" prefWidth="200.0" />
+         <HBox prefHeight="100.0" prefWidth="200.0" />
+            <Button fx:id="payInCashButton" mnemonicParsing="false" onAction="#payInCashAction" styleClass="cash-option-button" text="الدفع نقدا" BorderPane.alignment="CENTER">
             </Button>
+              <Button mnemonicParsing="false" onAction="#createManualVehicleRecord" prefHeight="25.0" prefWidth="87.0" styleClass="blue-button" textAlignment="CENTER">
+                  <graphic>
+                      <HBox alignment="CENTER">
+                          <ImageView fitHeight="54.0" fitWidth="54.0" HBox.hgrow="ALWAYS" pickOnBounds="true" preserveRatio="true">
+                              <image>
+                                  <Image url="@../images/icons/add.png" />
+                              </image>
+                          </ImageView>
+                      </HBox>
+                  </graphic>
+              </Button>
             <TextField fx:id="plateNumberText" prefHeight="25.0" prefWidth="525.0" />
             <HBox prefHeight="100.0" prefWidth="200.0">
                 <children>
-                    <Button mnemonicParsing="false" onAction="#createManualVehicleRecord" prefHeight="25.0" prefWidth="87.0" text="Add" textAlignment="CENTER" />
                     <HBox fx:id="queueBox" prefHeight="100.0" prefWidth="465.0">
                         <padding>
                             <Insets left="10.0" right="10.0" />
@@ -38,24 +99,99 @@
                     </HBox>
                 </children>
             </HBox>
+         <BorderPane.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="15.0" />
+         </BorderPane.margin>
         </VBox>
 
     </center>
-    <top>
-    </top>
-    <right>
-        <VBox alignment="CENTER" prefHeight="682.0" prefWidth="250.0" spacing="10.0" BorderPane.alignment="CENTER">
+    <left>
+        <VBox alignment="CENTER" prefHeight="604.0" prefWidth="250.0" styleClass="panel-detail" BorderPane.alignment="TOP_CENTER">
             <children>
-                <Label styleClass="headline" stylesheets="@../css/style.css" text="Label" />
-                <VBox fx:id="vehicleTypeBox" alignment="CENTER" prefHeight="682.0" prefWidth="250.0" spacing="10.0" BorderPane.alignment="CENTER">
+            </children>
+            <BorderPane.margin>
+                <Insets top="15.0" />
+            </BorderPane.margin>
+        </VBox>
+    </left>
+    <right>
+        <VBox alignment="CENTER" prefHeight="604.0" prefWidth="250.0" styleClass="panel-detail" BorderPane.alignment="TOP_CENTER">
+            <children>
+                <Label alignment="TOP_CENTER" styleClass="headline" stylesheets="@../css/style.css" text="Label" textAlignment="CENTER" VBox.vgrow="ALWAYS">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin></Label>
+                <VBox fx:id="vehicleTypeBox" alignment="TOP_CENTER" prefHeight="682.0" prefWidth="250.0" spacing="10.0" BorderPane.alignment="CENTER" VBox.vgrow="ALWAYS">
                     <padding>
                         <Insets right="20.0" />
                     </padding>
                 </VBox>
             </children>
          <BorderPane.margin>
-            <Insets top="20.0" />
+            <Insets top="15.0" />
          </BorderPane.margin>
         </VBox>
     </right>
+   <top>
+      <VBox prefHeight="76.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox prefHeight="38.0" prefWidth="200.0">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="33.0" prefWidth="145.0" spacing="20.0">
+                     <children>
+                        <Label styleClass="gate-info-value" text="10:42:00" />
+                        <Label styleClass="gate-info-value" text="5-20-24" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="10.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label fx:id="laneNumber" styleClass="gate-info-value" text="01" />
+                         <Label styleClass="gate-info-label" text="رقم الحارة:" />
+                         <Label fx:id="gate" styleClass="gate-info-value" text="شبرا بنها" />
+                         <Label styleClass="gate-info-label" text="بوابة:" />
+                         <Label fx:id="collectorUser" styleClass="gate-info-value" text="TC001" />
+                         <Label styleClass="gate-info-label" text="المحصل:" />
+                         <Label fx:id="laneRoad" styleClass="gate-info-value" text="شبرا بنها" />
+                         <Label styleClass="gate-info-label" text="طريق:" />
+                         <Label fx:id="laneType" styleClass="gate-info-value" text="نقل" />
+                         <Label styleClass="gate-info-label" text="نوع الحارة:" />
+                     </children>
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </HBox>
+               </children>
+            </HBox>
+            <HBox alignment="TOP_RIGHT" prefHeight="48.0" prefWidth="200.0" style="-fx-background-color: #49A93F;">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label styleClass="gate-status" text="الحارة مفتوحة" />
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/icons/arrow-down.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </HBox>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="40.0">
+                     <children>
+                        <ImageView fitHeight="39.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true" styleClass="mini-logo">
+                           <image>
+                              <Image url="@../images/mini-logo.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </HBox>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </top>
 </BorderPane>

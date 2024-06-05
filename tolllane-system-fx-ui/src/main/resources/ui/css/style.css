@@ -1,89 +1,206 @@
 @font-face {
-    font-family: 'Almarai';
-    src: url('/ui/font/Almarai-Regular.ttf');
+     font-family: 'Almarai';
+     src: url('/ui/font/Almarai-Regular.ttf');
+}
+ .root {
+     -fx-font-family: 'Almarai';
+}
+ .login-panel{
+     -fx-background-image:url('/ui/images/background-image.jpg');
+     -fx-background-size:cover;
+}
+ .login-form{
+     -fx-border-radius: 5;
+     -fx-background-radius: 5;
+     -fx-background-color:white;
+}
+ .login-button{
+     -fx-text-fill: white ;
+     -fx-background-color: #49a93f;
+     -fx-border-radius: 3;
+     -fx-background-radius: 3;
+}
+ .login-button:hover{
+     -fx-background-color: green;
+}
+ .selected-button{
+     -fx-text-fill: white ;
+     -fx-background-color: blue !important;
+     -fx-border-radius: 3;
+     -fx-background-radius: 3;
+}
+ .text-field, .password-field {
+     -fx-border-color: #edeff0;
+     -fx-background-color: #fcfdfe;
+     -fx-border-width: 1px;
+     -fx-padding: 5px;
+     -fx-alignment: CENTER_RIGHT;
+     -fx-font-size: 12px;
+     -fx-pref-width: 200;
+     -fx-pref-height: 10;
+     -fx-border-radius: 3;
+     -fx-background-radius: 3;
+}
+ .text-field:focused,.password-field:focus{
+     -fx-border-color: blue;
+}
+ .label{
+     -fx-text-fill: black ;
+     -fx-font-size: 11px;
+     -fx-font-weight: bold;
+}
+ .hyperlink {
+     -fx-text-fill: blue;
+     -fx-font-size: 11px;
+     -fx-underline: false;
+     -fx-cursor: hand;
+}
+ .hyperlink:hover {
+     -fx-text-fill: darkblue;
+}
+ .headline{
+     -fx-background-color: #49A93F;
+     -fx-text-fill: white ;
+     -fx-border-width: 1px;
+     -fx-padding: 10px 40px 10px 40px;
+     -fx-alignment: CENTER_RIGHT;
+     -fx-font-size: 18px;
+     -fx-font-weight: 400;
+     -fx-border-radius: 16px;
+     -fx-background-radius: 16px;
+     -fx-pref-width:200px;
+     -fx-pref-height:43px;
+     -fx-text-alignment:CENTER;
+}
+ .panel-detail{
+     -fx-margin: 10px 10px 10px 10px;
+     -fx-background-color: white;
+     -fx-border-radius: 17px;
+     -fx-background-radius: 17px;
+}
+ .panel-button{
+     -fx-background-color: white;
+     -fx-border-radius: 33px;
+     -fx-background-radius: 33px;
+}
+ .vehicle-type-button{
+     -fx-background-color:white;
+     -fx-border-color: #EEEEEE;
+     -fx-border-width: 1px;
+     -fx-border-radius: 5px;
+     -fx-effect: dropshadow(three-pass-box, rgba(230, 230, 230, 0.9), 10, 0, 0, 0);
 }
 
-.root {
-    -fx-font-family: 'Almarai';
-}
-
-.login-panel{
-    -fx-background-image:url('/ui/images/background-image.jpg');
-    -fx-background-size:cover;
-    -filter: grayscale(1);
-}
-
-.login-form{
-    -fx-border-radius: 5;
-    -fx-background-radius: 5;
-    -fx-background-color:white;
+ .vehicle-info-box{
+     -fx-background-color:white;
+     -fx-border-color: #EEEEEE;
+     -fx-border-width: 1px;
+     -fx-border-radius: 7px;
+     -fx-border-background: 7px;
+     -fx-effect: dropshadow(three-pass-box, rgba(230, 230, 230, 0.9), 10, 0, 0, 0);
 
 }
+.vehicle-info-box-selected{
+     -fx-background-color:white;
+     -fx-border-color: #109CF1;
+     -fx-border-width: 3px;
+     -fx-border-radius: 7px;
+     -fx-border-background: 7px;
+     -fx-effect: dropshadow(three-pass-box, rgba(230, 230, 230, 0.9), 10, 0, 0, 0);
 
-
-.button{
-    -fx-text-fill: white ;
-    -fx-background-color: #49a93f;
-    -fx-border-radius: 3;
-    -fx-background-radius: 3;
 }
-
-.selected-button{
-    -fx-text-fill: white ;
-    -fx-background-color: blue !important;
-    -fx-border-radius: 3;
-    -fx-background-radius: 3;
-}
-.button:hover{
-    -fx-background-color: green;
-}
-.text-field, .password-field {
-    -fx-border-color: #edeff0;
-    -fx-background-color: #fcfdfe;
-    -fx-border-width: 1px;
-    -fx-padding: 5px;
-    -fx-alignment: CENTER_RIGHT;
-    -fx-font-size: 12px;
-    -fx-pref-width: 200; /* Set preferred width */
-    -fx-pref-height: 10; /* Set preferred height */
-    -fx-border-radius: 3;
-    -fx-background-radius: 3;
-}
-
-.text-field:focused,.password-field:focus{
-    -fx-border-color: blue;
-}
-
-.label{
-    -fx-text-fill: black ;
-    -fx-font-size: 11px;
-    -fx-font-weight: bold;
-}
-
-.login-button{
-    -fx-background-color: red override;
-    -fx-font-size: 12px;
-}
-
-.hyperlink {
-    -fx-text-fill: blue;
-    -fx-font-size: 11px;
-    -fx-underline: false;
-    -fx-cursor: hand;
-}
-
-.hyperlink:hover {
-    -fx-text-fill: darkblue;
-}
-
-.headline{
-    -fx-background-color: #49A93F;
-    -fx-text-fill: white ;
-    -fx-border-width: 1px;
-    -fx-padding: 10px 40px 10px 40px;
-    -fx-alignment: CENTER_RIGHT;
-    -fx-font-size: 18px;
+.vehicle-info-text{
     -fx-font-weight: 400;
-    -fx-border-radius: 16px;
-    -fx-background-radius: 16px;
+    -fx-font-size: 22;
+}
+
+.vehicle-info-text-selected{
+    -fx-text-fill: #109CF1;
+    -fx-font-weight: 400;
+    -fx-font-size: 22;
+}
+
+.blue-button{
+   -fx-background-color: #109CF1;
+   -fx-border-width: 1px;
+   -fx-border-radius: 7px;
+   -fx-text-fill: white ;
+   -fx-font-size:42px;
+   -fx-font-weight:400;
+   -fx-pref-height:106px;
+   -fx-pref-width:184px;
+   -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+}
+
+.cash-option-button{
+   -fx-background-color: white;
+   -fx-border-width: 1px;
+   -fx-border-radius: 7px;
+   -fx-text-fill: #3354CC ;
+   -fx-font-size:28px;
+   -fx-font-weight:400;
+   -fx-pref-height:90px;
+   -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+}
+
+
+.emergency-button{
+   -fx-background-color: #CB392D;
+   -fx-border-width: 1px;
+   -fx-border-radius: 17px;
+   -fx-text-fill: white ;
+   -fx-font-size:42px;
+   -fx-font-weight:700;
+   -fx-pref-height:132px;
+}
+
+.vehicle-type-label{
+    -fx-font-weight: 700;
+    -fx-font-size: 32px;
+    -fx-text-fill: #3354CC ;
+}
+
+.fees-amount{
+    -fx-font-weight: 700;
+    -fx-font-size: 107px;
+    -fx-text-fill: #3354CC ;
+}
+
+.fees-desc{
+    -fx-font-weight: 400;
+    -fx-font-size: 25px;
+    -fx-text-fill: black ;
+}
+
+.add-edit-button{
+   -fx-background-color: #109CF1;
+   -fx-border-width: 1px;
+   -fx-border-radius: 11px;
+   -fx-text-fill: white ;
+   -fx-font-size:26px;
+   -fx-font-weight:400;
+}
+
+.gate-status{
+    -fx-font-size: 26;
+    -fx-font-weight: 400;
+    -fx-text-fill: white;
+}
+
+.gate-info-label{
+ -fx-font-weight: 400;
+ -fx-font-size: 16px;
+ -fx-text-fill: black ;
+}
+
+.gate-info-value{
+ -fx-font-weight: 400;
+ -fx-font-size: 18px;
+ -fx-text-fill: #4DB142 ;
+}
+
+
+.mini-logo{
+     -fx-border-radius: 50px;
+     -fx-border-background: 50px;
 }

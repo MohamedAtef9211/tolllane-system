@@ -20,7 +20,7 @@
             <TextField fx:id="username" layoutX="63.0" layoutY="163.0" prefHeight="42.0" prefWidth="149.0" />
             <Label layoutX="209.0" layoutY="206.0" text="%login.password.label" />
             <PasswordField fx:id="password" layoutX="63.0" layoutY="233.0" prefHeight="31.0" prefWidth="149.0" />
-            <Button fx:id="button" layoutX="63.0" layoutY="282.0" mnemonicParsing="false" onAction="#onSubmit" prefHeight="31.0" prefWidth="200.0" text="%login.registration-button.label" />
+            <Button fx:id="button" layoutX="63.0" layoutY="282.0" mnemonicParsing="false" onAction="#onSubmit" prefHeight="31.0" prefWidth="200.0" text="%login.registration-button.label" styleClass="login-button" />
             <Text fx:id="message" layoutX="64.0" layoutY="377.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="login-button" wrappingWidth="199.99999701976776" />
             <Hyperlink layoutX="114.0" layoutY="318.0" text="%login.forgot-password.label" />
             <Hyperlink layoutX="97.0" layoutY="339.0" text="%login.link.press-here.label" />

@@ -29,6 +29,10 @@ public class JavaFxUtils {
             Stage stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
             Scene scene = new Scene(fxmlLoader.load());
             stage.setScene(scene);
+            stage.setHeight(ScreenUtils.SCREEN_HEIGHT);
+            stage.setWidth(ScreenUtils.SCREEN_WIDTH);
+            stage.setMaximized(true);
+            stage.resizableProperty().setValue(Boolean.FALSE);
             stage.show();
 
         } catch (IOException e) {

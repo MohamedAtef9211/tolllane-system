@@ -11,7 +11,9 @@ import com.egabi.tls.service.VehiclesTypesService;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -47,17 +49,32 @@ public class CashCollectionController extends BaseFxController {
     @FXML
     private HBox queueBox = new HBox();
 
+    @FXML
+    private Label laneNumber;
+
+    @FXML
+    private Label gate;
+
+    @FXML
+    private Label collectorUser;
+
+    @FXML
+    private Label laneRoad;
+
+    @FXML
+    private Label laneType;
+
     private boolean isPageInitialized = false;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         System.err.println("inside initialize");
-        System.err.println("laneData " + laneDataConfig.getLaneData().getLaneRoad());
         super.initialize(url, resourceBundle);
         isPageInitialized = true;
         vehicleTypeList = vehiclesTypesService.findAllVehicles();
         checkRenderingVehicle();
         renderVehicleTypes();
+        renderLaneData();
         if(queueBox != null && queueBox.getChildren().isEmpty()) {
             vehicleQueue.forEach(vehicle -> {
                 Platform.runLater(() -> {
@@ -66,6 +83,14 @@ public class CashCollectionController extends BaseFxController {
                 });
             });
         }
+    }
+
+    private void renderLaneData() {
+        laneNumber.setText(laneDataConfig.getLaneData().getLaneNumber());
+        gate.setText(laneDataConfig.getLaneData().getGate());
+        collectorUser.setText("TC002");
+        laneRoad.setText(laneDataConfig.getLaneData().getLaneRoad());
+        laneType.setText(laneDataConfig.getLaneData().getLaneType());
     }
 
     @EventListener
@@ -146,9 +171,11 @@ public class CashCollectionController extends BaseFxController {
                     button.getStyleClass().add("selected-button");
                 }
                 vehicleTypeBox.getChildren().add(button);
-                VehicleInfoBox vehicleInfoBox = new VehicleInfoBox(currentVehicle);
-                vehicleTypeBox.getChildren().add(vehicleInfoBox);
             });
+            VehicleInfoBox vehicleInfoBox = new VehicleInfoBox(currentVehicle ,true);
+            vehicleTypeBox.getChildren().add(vehicleInfoBox);
+            vehicleInfoBox = new VehicleInfoBox(currentVehicle ,false);
+            vehicleTypeBox.getChildren().add(vehicleInfoBox);
         }
     }
 
@@ -157,6 +184,14 @@ public class CashCollectionController extends BaseFxController {
     }
 
     public void endProcess() {
+            VehicleInfoBox node = (VehicleInfoBox) vehicleTypeBox.getChildren().get(4);
+            node = new VehicleInfoBox(node.getVehicle(),true);
+            System.err.println("Node is " + node);
+            System.err.println("Size is " + vehicleTypeBox.getChildren().size());
+        vehicleTypeBox.getChildren().remove(4);
+        vehicleTypeBox.getChildren().add(0,node);
+//            node.getStyleClass().clear();
+//            node.getStyleClass().add("vehicle-info-box");
         if (vehicleQueue != null && !vehicleQueue.isEmpty()) {
             vehicleQueue.remove();
             queueBox.getChildren().clear();
