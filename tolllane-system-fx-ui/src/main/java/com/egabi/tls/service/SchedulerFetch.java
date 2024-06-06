@@ -10,11 +10,11 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-@Service("scheduler")
+//@Service("scheduler")
 public class SchedulerFetch {
     private ScheduledExecutorService scheduledExecutorService;
 
-    @PostConstruct
+    //@PostConstruct
     public void init(){
         System.err.println("inside Init SchedulerFetch");
         scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
@@ -25,7 +25,7 @@ public class SchedulerFetch {
         }, 0, 2000, TimeUnit.MILLISECONDS);
     }
 
-    @PreDestroy
+    //@PreDestroy
     public void destroySchedule(){
         System.err.println("inside Destroy SchedulerFetch");
         scheduledExecutorService.shutdownNow();

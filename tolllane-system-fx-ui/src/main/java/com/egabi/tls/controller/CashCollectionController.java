@@ -22,11 +22,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Controller;
 
+import javax.annotation.PreDestroy;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import java.util.ResourceBundle;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 @Controller
 public class CashCollectionController extends BaseFxController {
@@ -35,6 +42,9 @@ public class CashCollectionController extends BaseFxController {
 
     @Autowired
     private LaneDataConfig laneDataConfig;
+
+    private ScheduledExecutorService scheduledExecutorService;
+
 
     private Queue<Vehicle> vehicleQueue = new LinkedList<>();
 
@@ -72,11 +82,18 @@ public class CashCollectionController extends BaseFxController {
     @FXML
     private Label vehicleTypeInfo;
 
+    @FXML
+    private Label currentTime;
+
+    @FXML
+    private Label currentDate;
     private boolean isPageInitialized = false;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         isPageInitialized = true;
+        scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
+        scheduleTimeAndUpdateFields();
         vehicleTypeList = vehiclesTypesService.findAllVehicles();
         renderLaneData();
         checkRenderingVehicle();
@@ -211,6 +228,25 @@ public class CashCollectionController extends BaseFxController {
         });
     }
 
+    private void scheduleTimeAndUpdateFields() {
+        scheduledExecutorService.scheduleAtFixedRate(() -> {
+            try {
+                DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM-dd-yy");
+                LocalDate today = LocalDate.now();
+                String formattedDate = dateFormatter.format(today);
+                DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+                LocalTime now = LocalTime.now();
+                String formattedTime = timeFormatter.format(now);
+                javafx.application.Platform.runLater(() -> {
+                    currentDate.setText(formattedDate);
+                    currentTime.setText(formattedTime);
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }, 0, 1, TimeUnit.SECONDS);
+    }
+
     public void addVehicleToFront(Vehicle vehicle) {
         ((LinkedList<Vehicle>) vehicleQueue).addFirst(vehicle);
     }
@@ -229,5 +265,10 @@ public class CashCollectionController extends BaseFxController {
     @Override
     public String stageTitle() {
         return JAVA_FX_UTILS.getValueFromBundle("stage.cash-collection.title");
+    }
+
+    @PreDestroy
+    public void destroySchedule(){
+        scheduledExecutorService.shutdownNow();
     }
 }

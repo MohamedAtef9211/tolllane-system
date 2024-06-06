@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="682.0" prefWidth="975.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.egabi.tls.controller.CashCollectionController">
     <center>
         <VBox alignment="TOP_CENTER" BorderPane.alignment="TOP_CENTER">
@@ -76,7 +82,7 @@
                             </HBox>
                         </graphic>
                     </Button>
-                    <HBox fx:id="queueBox" alignment="CENTER_LEFT" prefHeight="100.0" spacing="10.0" prefWidth="915.0" >
+                    <HBox fx:id="queueBox" alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="915.0" spacing="10.0">
                         <padding>
                             <Insets left="10.0" right="10.0" />
                         </padding>
@@ -129,11 +135,14 @@
          <children>
             <HBox prefHeight="38.0" prefWidth="200.0">
                <children>
-                  <HBox alignment="CENTER" prefHeight="33.0" prefWidth="145.0" spacing="20.0">
+                  <HBox alignment="CENTER" prefHeight="33.0" prefWidth="208.0" spacing="20.0">
                      <children>
-                        <Label styleClass="gate-info-value" text="10:42:00" />
-                        <Label styleClass="gate-info-value" text="5-20-24" />
+                         <Label fx:id="currentTime" styleClass="gate-info-value" />
+                         <Label fx:id="currentDate" styleClass="gate-info-value" />
                      </children>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
                   </HBox>
                   <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="10.0" HBox.hgrow="ALWAYS">
                      <children>
