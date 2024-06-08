@@ -2,12 +2,15 @@ package com.egabi.tls;
 
 import com.egabi.tls.controller.BaseFxController;
 import com.egabi.tls.controller.CashCollectionController;
+import com.egabi.tls.controller.LoginController;
 import com.egabi.tls.model.ViewLoader;
 import com.egabi.tls.utils.ScreenUtils;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.WebApplicationType;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
 
 public class TollaneJavaFxApplication extends Application {
@@ -16,7 +19,15 @@ public class TollaneJavaFxApplication extends Application {
 
     @Override
     public void init() {
-        this.applicationContext = SpringApplication.run(TollaneUISpringApplication.class);
+//        this.applicationContext = SpringApplication.run(TollaneUISpringApplication.class);
+        this.applicationContext = new SpringApplicationBuilder(TollaneUISpringApplication.class)
+                .web(WebApplicationType.SERVLET)
+                .run();
+        for(String s : this.applicationContext.getBeanDefinitionNames()){
+            if (s.startsWith("com.egabi.")) {
+                System.out.println("s = " + s);
+            }
+        }
     }
 
     @Override
@@ -47,6 +58,6 @@ public class TollaneJavaFxApplication extends Application {
     }
 
     private BaseFxController loadHomePage(){
-        return new CashCollectionController();
+        return new LoginController();
     }
 }
