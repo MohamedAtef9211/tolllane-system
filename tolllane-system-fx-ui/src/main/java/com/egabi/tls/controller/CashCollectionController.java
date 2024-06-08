@@ -14,6 +14,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -34,7 +35,6 @@ import java.util.ResourceBundle;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-
 @Controller
 public class CashCollectionController extends BaseFxController {
     @Autowired
@@ -87,6 +87,9 @@ public class CashCollectionController extends BaseFxController {
 
     @FXML
     private Label currentDate;
+
+    @FXML
+    private TextField plateNumberText;
     private boolean isPageInitialized = false;
 
     @Override
@@ -120,6 +123,7 @@ public class CashCollectionController extends BaseFxController {
 
     private void renderPageWithVehicleData() {
         currentVehicle = vehicleQueue.element();
+        plateNumberText.setText(currentVehicle.getPlateNo());
         Platform.runLater(() -> {
             vehicleTypeBox.getChildren().clear();
             renderVehicleTypes();
@@ -130,6 +134,7 @@ public class CashCollectionController extends BaseFxController {
 
     private void renderEmptyVehicleData() {
         currentVehicle = null;
+        plateNumberText.setText(null);
         vehicleTypeBox.getChildren().clear();
         renderVehicleTypes();
         queueBox.getChildren().clear();
@@ -186,22 +191,25 @@ public class CashCollectionController extends BaseFxController {
         }
     }
 
-    public void createManualVehicleRecord(ActionEvent event) {
-        currentVehicle = new Vehicle(
-                new Axes(10, 50),
-                List.of(1500, 2300),
-                40000,
-                "abc123",
-                "BUS",
-                "ط ص و - 0943",
-                "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAYjPcPAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAASUVORK5CYII="
-        );
+    public void createManualVehicleRecord(ActionEvent actionEvent) {
+//        currentVehicle = new Vehicle(
+//                new Axes(10, 50),
+//                List.of(1500, 2300),
+//                40000,
+//                "abc123",
+//                "BUS",
+//                "ط ص و - 0943",
+//                "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAYjPcPAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAASUVORK5CYII="
+//        );
+        currentVehicle = new Vehicle();
+        currentVehicle.setVehicleType("PRIVATE");
         addVehicleToFirstOfQueue(currentVehicle);
     }
 
     private void addVehicleToFirstOfQueue(Vehicle vehicle) {
         addVehicleToFront(vehicle);
         generateVehicleInfoBox();
+        plateNumberText.setDisable(false);
         renderPageWithVehicleData();
     }
 
@@ -256,6 +264,13 @@ public class CashCollectionController extends BaseFxController {
                 .filter(vehicle -> vehicle.getCode().equalsIgnoreCase(code))
                 .findFirst().orElse(null);
     }
+
+//    private void getImageFromBase64String(String newValue) throws IOException {
+//        BASE64Decoder base64Decoder = new BASE64Decoder();
+//        ByteArrayInputStream inputStream = new ByteArrayInputStream(base64Decoder.decodeBuffer(newValue));
+//        Image img = new Image(inputStream);
+//        imgDisplayImage.setImage(img);
+//    }
 
     @Override
     public String getFxmlViewPath() {
