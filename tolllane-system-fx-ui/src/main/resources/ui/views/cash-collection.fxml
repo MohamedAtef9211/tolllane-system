@@ -8,7 +8,10 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="682.0" prefWidth="975.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.egabi.tls.controller.CashCollectionController">
@@ -62,9 +65,30 @@
                         <padding>
                            <Insets bottom="15.0" top="15.0" />
                         </padding></HBox>
-                     <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: blue;" styleClass="panel-detail">
+                     <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="panel-detail">
                         <children>
-                           <TextField fx:id="plateNumberText" alignment="CENTER_RIGHT" disable="true" />
+                           <GridPane alignment="CENTER">
+                             <columnConstraints>
+                               <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="75.0" prefWidth="75.0" />
+                               <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="380.0" prefWidth="380.0" />
+                                 <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="70.0" prefWidth="70.0" />
+                             </columnConstraints>
+                             <rowConstraints>
+                               <RowConstraints minHeight="70.0" prefHeight="70.0" vgrow="SOMETIMES" />
+                               <RowConstraints minHeight="70.0" prefHeight="70.0" vgrow="SOMETIMES" />
+                             </rowConstraints>
+                              <children>
+                                 <TextField fx:id="plateNumberText" alignment="CENTER_RIGHT" disable="true" styleClass="add-edit-text" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                 <Label styleClass="add-edit-label" text="اللوحة" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                                 <Button alignment="CENTER" mnemonicParsing="false" styleClass="add-edit-button" text="تعديل" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                  <TextField fx:id="tagIdText" alignment="CENTER_RIGHT" disable="true" styleClass="add-edit-text" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                  <Label styleClass="add-edit-label" text="Tag ID" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                  <Button alignment="CENTER" mnemonicParsing="false" styleClass="add-edit-button" text="إضافة" textAlignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                              </children>
+                              <padding>
+                                 <Insets top="20.0" />
+                              </padding>
+                           </GridPane>
                         </children></VBox>
                   </children>
                   <HBox.margin>
@@ -98,9 +122,9 @@
             </HBox>
          <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="10">
             <children>
-                  <Button fx:id="payInCashButton" mnemonicParsing="false" onAction="#payInCashAction" styleClass="cash-option-button" text="الدفع نقدا" />
-                  <Button mnemonicParsing="false" onAction="#payInCashAction" styleClass="cash-option-button" text="مركبة معفاه" />
-                  <Button mnemonicParsing="false" onAction="#payInCashAction" styleClass="cash-option-button" text="رسوم وزن زائد" />
+                <Button mnemonicParsing="false" onAction="#payInCashAction" styleClass="cash-option-button" text="رسوم وزن زائد" />
+                <Button mnemonicParsing="false" onAction="#payInCashAction" styleClass="cash-option-button" text="مركبة معفاه" />
+                <Button fx:id="payInCashButton" mnemonicParsing="false" onAction="#payInCashAction" styleClass="cash-option-button" text="الدفع نقدا" />
             </children>
          </HBox>
          <BorderPane.margin>
@@ -121,7 +145,7 @@
     <right>
         <VBox alignment="CENTER" prefHeight="604.0" prefWidth="250.0" styleClass="panel-detail" BorderPane.alignment="TOP_CENTER">
             <children>
-                <Label alignment="TOP_CENTER" styleClass="headline" stylesheets="@../css/style.css" text="Label" textAlignment="CENTER" VBox.vgrow="ALWAYS">
+                <Label alignment="CENTER" styleClass="headline" stylesheets="@../css/style.css" text="Label" textAlignment="CENTER">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin></Label>

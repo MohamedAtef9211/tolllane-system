@@ -8,7 +8,12 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
+
+import javax.servlet.ServletContextListener;
+import java.util.Set;
 
 @SpringBootApplication
 public class TollaneUISpringApplication {
@@ -21,19 +26,31 @@ public class TollaneUISpringApplication {
 	public ServletWebServerFactory servletWebServerFactory(){
 		TomcatServletWebServerFactory factory = new TomcatServletWebServerFactory();
 		factory.setPort(8080);
+        System.err.println("Context Path " + factory.getContextPath());
 		return factory;
 	}
 
-    @Bean
-    public RequestMappingHandlerMapping requestMappingHandlerMapping() {
-        return new RequestMappingHandlerMapping();
-    }
-
+//    @Bean
+//    public RequestMappingHandlerMapping requestMappingHandlerMapping() {
+//        return new RequestMappingHandlerMapping();
+//    }
+//
     @EventListener
     public void handleContextRefresh(ContextRefreshedEvent event) {
         ApplicationContext applicationContext = event.getApplicationContext();
-        applicationContext.getBean(RequestMappingHandlerMapping.class)
-                .getHandlerMethods().forEach((key, value) -> System.err.println("key is " + value));
-    }
+        RequestMappingHandlerMapping requestMappingHandlerMapping =
+                applicationContext.getBean(RequestMappingHandlerMapping.class);
 
+        requestMappingHandlerMapping.getHandlerMethods()
+                .forEach((requestMappingInfo, handlerMethod) -> {
+                    Set<RequestMethod> methods = requestMappingInfo.getMethodsCondition().getMethods();
+                    Set<String> patterns = requestMappingInfo.getPatternsCondition().getPatterns();
+
+                    methods.forEach(method ->
+                            patterns.forEach(pattern ->
+                                    System.err.println("Method: " + method + ", Path: " + pattern + ", Handler: " + handlerMethod)
+                            )
+                    );
+                });
+    }
 }

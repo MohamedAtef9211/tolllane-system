@@ -176,9 +176,35 @@
    -fx-background-color: #109CF1;
    -fx-border-width: 1px;
    -fx-border-radius: 11px;
+   -fx-background-radius: 11;
    -fx-text-fill: white ;
    -fx-font-size:26px;
    -fx-font-weight:400;
+   -fx-pref-width:150px;
+}
+
+.add-edit-label{
+   -fx-text-fill: black ;
+   -fx-font-size:24px;
+   -fx-font-weight:400;
+}
+
+ .add-edit-text {
+     -fx-border-color: black;
+     -fx-background-color: white;
+     -fx-border-width: 1px;
+     -fx-padding: 5px;
+     -fx-alignment: CENTER_RIGHT;
+     -fx-font-size: 22 px;
+     -fx-font-weight: 400;
+     -fx-pref-width: 368;
+     -fx-pref-height: 50;
+     -fx-border-radius: 11;
+     -fx-background-radius: 11;
+}
+ .add-edit-text:disabled{
+     -fx-border-color: #D9D9D9;
+     -fx-background-color: #D9D9D9;
 }
 
 .gate-status{

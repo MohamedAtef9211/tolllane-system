@@ -10,6 +10,8 @@ import com.egabi.tls.model.VehicleType;
 import com.egabi.tls.model.VehicleTypeIcons;
 import com.egabi.tls.service.VehiclesTypesService;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -21,6 +23,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Controller;
 
 import javax.annotation.PreDestroy;
@@ -90,6 +93,9 @@ public class CashCollectionController extends BaseFxController {
 
     @FXML
     private TextField plateNumberText;
+
+    @FXML
+    private TextField tagIdText;
     private boolean isPageInitialized = false;
 
     @Override
@@ -100,9 +106,9 @@ public class CashCollectionController extends BaseFxController {
         vehicleTypeList = vehiclesTypesService.findAllVehicles();
         renderLaneData();
         checkRenderingVehicle();
-        if(queueBox != null && queueBox.getChildren().isEmpty()) {
-            generateVehicleInfoBox();
-        }
+//        if(queueBox != null && queueBox.getChildren().isEmpty()) {
+//            generateVehicleInfoBox();
+//        }
     }
 
     private void renderLaneData() {
@@ -174,6 +180,7 @@ public class CashCollectionController extends BaseFxController {
 
     @EventListener
     public void addVehicleToQueueListener(AddNewVehicleEvent event) {
+        System.err.println("inside addVehicleToQueueListener");
         addVehicleToQueue(event.getVehicle());
         if (currentVehicle == null && isPageInitialized) {
             renderPageWithVehicleData();
@@ -284,6 +291,8 @@ public class CashCollectionController extends BaseFxController {
 
     @PreDestroy
     public void destroySchedule(){
-        scheduledExecutorService.shutdownNow();
+        if (scheduledExecutorService != null) {
+            scheduledExecutorService.shutdownNow();
+        }
     }
 }
