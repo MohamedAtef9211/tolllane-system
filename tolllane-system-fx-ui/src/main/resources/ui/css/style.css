@@ -24,10 +24,9 @@
      -fx-background-color: green;
 }
  .selected-button{
-     -fx-text-fill: white ;
-     -fx-background-color: blue !important;
-     -fx-border-radius: 3;
-     -fx-background-radius: 3;
+     -fx-border-color: #EEE;
+     -fx-background-color: linear-gradient(to left, #49A93F, #E839F6);
+     -fx-effect: dropshadow(three-pass-box, rgba(230, 230, 230, 0.9), 10, 0, 0, 0);
 }
  .text-field, .password-field {
      -fx-border-color: #edeff0;

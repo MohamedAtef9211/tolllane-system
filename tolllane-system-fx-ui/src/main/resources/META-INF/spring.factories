@@ -1,5 +1,5 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.egabi.tls.service.CustomService,\
-com.egabi.tls.service.LoginService,\
-com.egabi.tls.controller.TCSController,\
-com.egabi.tls.controller.ITSController
+com.egabi.tcs.service.CustomService,\
+com.egabi.tcs.service.LoginService,\
+com.egabi.tcs.controller.TCSController,\
+com.egabi.tcs.controller.ITSController
