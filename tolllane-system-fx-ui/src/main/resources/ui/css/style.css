@@ -25,8 +25,8 @@
 }
  .selected-button{
      -fx-border-color: #EEE;
-     -fx-background-color: linear-gradient(to left, #49A93F, #E839F6);
-     -fx-effect: dropshadow(three-pass-box, rgba(230, 230, 230, 0.9), 10, 0, 0, 0);
+     -fx-background-color: linear-gradient(to left,rgba(73, 169, 63, 0.30) 0%, rgba(73, 169, 63, 0.00) 80% ) !important;
+     -fx-effect: dropshadow(three-pass-box, rgba(230, 230, 230, 0.9), 10, 0, 0, 0) !important;
 }
  .text-field, .password-field {
      -fx-border-color: #edeff0;
