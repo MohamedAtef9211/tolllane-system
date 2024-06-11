@@ -1,5 +1,7 @@
 package com.egabi.tcs.model;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,5 +17,6 @@ public class Vehicle {
     private String hashcode;
     private String vehicleType;
     private String plateNo;
+    @JsonProperty("ANBR_Image")
     private String aNBRImage;
 }

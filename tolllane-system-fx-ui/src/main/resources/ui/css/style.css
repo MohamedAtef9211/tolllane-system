@@ -147,10 +147,12 @@
    -fx-background-color: #CB392D;
    -fx-border-width: 1px;
    -fx-border-radius: 17px;
+   -fx-border-background: 17px;
    -fx-text-fill: white ;
    -fx-font-size:42px;
    -fx-font-weight:700;
-   -fx-pref-height:132px;
+   -fx-pref-height:3em;
+   -fx-pref-width: 4.6em;
 }
 
 .vehicle-type-label{
@@ -228,4 +230,8 @@
 .mini-logo{
      -fx-border-radius: 50px;
      -fx-border-background: 50px;
+}
+
+.selected-separator{
+  -fx-background-color: #49A93F;
 }

@@ -21,7 +21,7 @@
             <children>
                <HBox>
                   <children>
-                     <ImageView fitHeight="371.0" fitWidth="629.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
+                     <ImageView fx:id="vehicleImageView" fitHeight="371.0" fitWidth="629.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
                         <image>
                            <Image url="@../images/default-car.png" />
                         </image>
@@ -97,7 +97,7 @@
                </VBox>
             </children>
          </HBox>
-            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" styleClass="panel-button">
+            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" styleClass="panel-button">
                 <children>
                     <Button mnemonicParsing="false" onAction="#createManualVehicleRecord" prefHeight="25.0" prefWidth="87.0" styleClass="blue-button" textAlignment="CENTER">
                         <graphic>
@@ -110,7 +110,7 @@
                             </HBox>
                         </graphic>
                     </Button>
-                    <HBox fx:id="queueBox" alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="915.0" spacing="10.0">
+                    <HBox fx:id="queueBox" alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="1073.0" spacing="10.0">
                         <padding>
                             <Insets left="10.0" right="10.0" />
                         </padding>
@@ -122,6 +122,7 @@
             </HBox>
          <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="10">
             <children>
+                <Button mnemonicParsing="false" onAction="#checkSubscription" styleClass="cash-option-button" text="تأكيد الأشتراك" />
                 <Button mnemonicParsing="false" onAction="#payInCashAction" styleClass="cash-option-button" text="رسوم وزن زائد" />
                 <Button mnemonicParsing="false" onAction="#payInCashAction" styleClass="cash-option-button" text="مركبة معفاه" />
                 <Button fx:id="payInCashButton" mnemonicParsing="false" onAction="#payInCashAction" styleClass="cash-option-button" text="الدفع نقدا" />
@@ -154,6 +155,11 @@
                         <Insets right="20.0" />
                     </padding>
                 </VBox>
+            <Button mnemonicParsing="false" onAction="#emergencyAction" styleClass="emergency-button" text="طوارئ">
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+            </Button>
             </children>
          <BorderPane.margin>
             <Insets top="15.0" />

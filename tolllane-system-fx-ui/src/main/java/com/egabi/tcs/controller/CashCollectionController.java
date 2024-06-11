@@ -11,9 +11,7 @@ import com.egabi.tcs.service.VehiclesTypesService;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -27,10 +25,7 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -77,6 +72,9 @@ public class CashCollectionController extends BaseFxController {
 
     @FXML
     private ImageView vehicleTypeImage;
+
+    @FXML
+    private ImageView vehicleImageView;
 
     @FXML
     private Label vehicleTypeInfo;
@@ -127,6 +125,15 @@ public class CashCollectionController extends BaseFxController {
         currentVehicle = vehicleQueue.element();
         plateNumberText.setText(currentVehicle.getPlateNo());
         Platform.runLater(() -> {
+            if(currentVehicle.getANBRImage() != null){
+                try {
+                    String newImageString = "data:image/PNG;base64," + currentVehicle.getANBRImage();
+                    vehicleImageView.setImage(new Image(newImageString));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    loadDefaultImage();
+                }
+            }
             vehicleTypeBox.getChildren().clear();
             renderVehicleTypes();
             generateVehicleInfoBox();
@@ -137,11 +144,11 @@ public class CashCollectionController extends BaseFxController {
     private void renderEmptyVehicleData() {
         currentVehicle = null;
         plateNumberText.setText(null);
+        loadDefaultImage();
         vehicleTypeBox.getChildren().clear();
         renderVehicleTypes();
         queueBox.getChildren().clear();
         feesAmount.setText("0");
-        //TODO: Update fees image with new one
         vehicleTypeImage.setImage(new Image(VehicleTypeIcons.getImagePath("NaN")));
         vehicleTypeInfo.setText("لا يوجد");
     }
@@ -217,7 +224,57 @@ public class CashCollectionController extends BaseFxController {
     }
 
     public void payInCashAction(ActionEvent event) {
-        endProcess();
+        Alert alert;
+        ButtonType cancel = new ButtonType(JAVA_FX_UTILS.getValueFromBundle("dialog.button.cancel.label"), ButtonBar.ButtonData.CANCEL_CLOSE);
+        if(feesAmount.getText() == null || (feesAmount.getText() != null && feesAmount.getText().equalsIgnoreCase("0"))){
+            alert = new Alert(Alert.AlertType.ERROR,
+                    "Amount must ",
+                    cancel);
+            alert.show();
+        }
+        else {
+            ButtonType ok = new ButtonType("Print", ButtonBar.ButtonData.OK_DONE);
+            alert = new Alert(Alert.AlertType.INFORMATION,
+                    "Do you want to Pay in cash with amount " + feesAmount.getText(),
+                    ok,
+                    cancel);
+            alert.setTitle("Pay In Cash");
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ok) {
+                printReceipt();
+                endProcess();
+            }
+        }
+    }
+
+    private void printReceipt() {
+        System.err.println("PRINTING RECEIPT");
+    }
+
+    public void checkSubscription(ActionEvent actionEvent) {
+        ButtonType cancel = new ButtonType(JAVA_FX_UTILS.getValueFromBundle("dialog.button.cancel.label"), ButtonBar.ButtonData.CANCEL_CLOSE);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION,
+                "This user is already subscribed",
+                cancel);
+        alert.setTitle("Check Subscription");
+//        Optional<ButtonType> result = alert.showAndWait();
+//        if (result.get() == ok) {
+//            printReceipt();
+//            endProcess();
+//        }
+        if(!checkUserSubscription()){
+            alert.setContentText("This user is not subscribed");
+            alert.setAlertType(Alert.AlertType.ERROR);
+        }
+        alert.show();
+    }
+
+    //TODO: add check user sub from backend
+    private boolean checkUserSubscription() {
+        return true;
+    }
+
+    public void emergencyAction(ActionEvent event) {
     }
 
     public void endProcess() {
@@ -238,6 +295,8 @@ public class CashCollectionController extends BaseFxController {
             });
         });
     }
+
+
 
     private void scheduleTimeAndUpdateFields() {
         scheduledExecutorService.scheduleAtFixedRate(() -> {
@@ -268,12 +327,9 @@ public class CashCollectionController extends BaseFxController {
                 .findFirst().orElse(null);
     }
 
-//    private void getImageFromBase64String(String newValue) throws IOException {
-//        BASE64Decoder base64Decoder = new BASE64Decoder();
-//        ByteArrayInputStream inputStream = new ByteArrayInputStream(base64Decoder.decodeBuffer(newValue));
-//        Image img = new Image(inputStream);
-//        imgDisplayImage.setImage(img);
-//    }
+    private void loadDefaultImage(){
+        vehicleImageView.setImage(new Image("/ui/images/default-car.png"));
+    }
 
     @Override
     public String getFxmlViewPath() {

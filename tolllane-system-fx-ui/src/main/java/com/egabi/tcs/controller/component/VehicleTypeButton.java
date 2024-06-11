@@ -60,6 +60,8 @@ public class VehicleTypeButton extends Button implements Initializable {
             vehicleImage.setEffect(grayscaleEffect);
             rootButton.getStyleClass().removeAll();
             rootButton.getStyleClass().add("selected-button");
+            seperator.getStyleClass().removeAll();
+            seperator.getStyleClass().add("selected-separator");
         }
         vehicleImage.setImage(new Image(VehicleTypeIcons.getImagePath(vehicleType.getCode().toUpperCase())));
     }

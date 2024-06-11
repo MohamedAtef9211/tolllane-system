@@ -32,6 +32,7 @@ public class JavaFxUtils {
             stage.setHeight(ScreenUtils.SCREEN_HEIGHT);
             stage.setWidth(ScreenUtils.SCREEN_WIDTH);
             stage.setMaximized(true);
+            //stage.setFullScreen(true);
             stage.resizableProperty().setValue(Boolean.FALSE);
             stage.show();
 

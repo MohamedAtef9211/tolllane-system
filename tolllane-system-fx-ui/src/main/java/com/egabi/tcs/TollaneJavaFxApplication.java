@@ -1,11 +1,14 @@
 package com.egabi.tcs;
 
 import com.egabi.tcs.controller.BaseFxController;
+import com.egabi.tcs.controller.CashCollectionController;
 import com.egabi.tcs.controller.LoginController;
 import com.egabi.tcs.model.ViewLoader;
 import com.egabi.tcs.utils.ScreenUtils;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.scene.control.Alert;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -36,12 +39,15 @@ public class TollaneJavaFxApplication extends Application {
         stage.setHeight(ScreenUtils.SCREEN_HEIGHT);
         stage.setWidth(ScreenUtils.SCREEN_WIDTH);
         stage.setMaximized(true);
+ //       stage.setFullScreen(true);
         stage.resizableProperty().setValue(Boolean.FALSE);
         stage.show();
 //        Stage finalStage = stage;
 //        stage.setOnCloseRequest(event -> {
 //            event.consume();
-//            homePage.closureAction(finalStage);
+//            //homePage.closureAction(finalStage);
+//            Alert alert = new Alert(Alert.AlertType.WARNING,"yOU CANT LOGOUT BITCH");
+//            alert.show();
 //        });
     }
 
